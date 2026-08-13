@@ -76,8 +76,19 @@ async function fetchWikiPageHtml(): Promise<string> {
   return html;
 }
 
+// The wiki prepends this notice, with no separating whitespace, to any perk
+// whose numbers are previewed for an upcoming patch — e.g. "...Patch
+// 7.7.0You are fuelled by...". Strip it; it's wiki-editorial metadata, not
+// part of the perk's actual description.
+const UPCOMING_PATCH_NOTICE =
+  /^This description is based on the changes announced for or featured in the upcoming Patch [\d.]+\s*/;
+
 function cleanText(text: string): string {
   return text.replace(/\s+/g, " ").trim();
+}
+
+function cleanDescription(text: string): string {
+  return cleanText(text).replace(UPCOMING_PATCH_NOTICE, "");
 }
 
 function parseRole($: cheerio.CheerioAPI, role: PerkRole): ScrapedRow[] {
@@ -101,7 +112,7 @@ function parseRole($: cheerio.CheerioAPI, role: PerkRole): ScrapedRow[] {
     rows.push({
       name,
       slug: slugify(name),
-      description: cleanText(descriptionCell.text()),
+      description: cleanDescription(descriptionCell.text()),
       character: cleanText(characterCell.text()),
       iconSourceUrl: iconSourceUrl.split("/revision/")[0], // strip cache-buster path segment
     });

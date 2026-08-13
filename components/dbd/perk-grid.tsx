@@ -12,15 +12,19 @@ import { cn } from "@/lib/cn";
 export function PerkGrid({
   perks,
   language,
+  loading = false,
+  emptyMessage,
   onCopy,
 }: {
   perks: Perk[];
   language: "en" | "ru";
+  loading?: boolean;
+  emptyMessage?: string;
   onCopy: (perk: Perk) => void;
 }) {
   const [detailPerk, setDetailPerk] = useState<Perk | null>(null);
 
-  if (perks.length === 0) {
+  if (loading) {
     return (
       <div className="grid min-h-[220px] grid-cols-2 gap-4 sm:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
@@ -29,6 +33,14 @@ export function PerkGrid({
             className="aspect-square animate-pulse rounded-2xl border border-border bg-surface"
           />
         ))}
+      </div>
+    );
+  }
+
+  if (perks.length === 0) {
+    return (
+      <div className="flex min-h-[220px] w-full max-w-md items-center justify-center rounded-2xl border border-dashed border-border p-6 text-center text-sm text-muted">
+        {emptyMessage ?? "Пусто"}
       </div>
     );
   }

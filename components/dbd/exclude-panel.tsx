@@ -13,6 +13,7 @@ export function ExcludePanel({
   role,
   language,
   excludedSlugs,
+  alsoGrayedOut,
   onToggle,
   onReset,
   onClose,
@@ -21,6 +22,10 @@ export function ExcludePanel({
   role: PerkRole;
   language: "en" | "ru";
   excludedSlugs: Set<string>;
+  /** Perks that read as unavailable for another reason (e.g. eliminated in
+   *  Battle Royale) — shown with the same grayed-out treatment, just not
+   *  counted in the "N excluded" badge or cleared by "Сбросить". */
+  alsoGrayedOut?: ReadonlySet<string>;
   onToggle: (slug: string) => void;
   onReset: () => void;
   onClose: () => void;
@@ -75,7 +80,8 @@ export function ExcludePanel({
 
             <div className="grid grid-cols-3 gap-2 overflow-y-auto p-4 sm:grid-cols-4">
               {perksForRole.map((perk) => {
-                const excluded = excludedSlugs.has(perk.slug);
+                const excluded =
+                  excludedSlugs.has(perk.slug) || alsoGrayedOut?.has(perk.slug);
                 return (
                   <button
                     key={perk.slug}

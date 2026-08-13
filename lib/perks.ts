@@ -21,24 +21,35 @@ export function isNewPerk(perk: Perk): boolean {
   return Date.now() - new Date(perk.addedAt).getTime() < NEW_WINDOW_MS;
 }
 
+function shuffle<T>(items: T[]): T[] {
+  const shuffled = [...items];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+export function getAvailablePool(
+  role: PerkRole,
+  excludedSlugs?: ReadonlySet<string>,
+): Perk[] {
+  const fullPool = getPerksByRole(role);
+  if (!excludedSlugs || excludedSlugs.size === 0) return fullPool;
+  return fullPool.filter((perk) => !excludedSlugs.has(perk.slug));
+}
+
 export function getRandomPerks(
   role: PerkRole,
   count: number,
   excludedSlugs?: ReadonlySet<string>,
 ): Perk[] {
   const fullPool = getPerksByRole(role);
-  const pool =
-    excludedSlugs && excludedSlugs.size > 0
-      ? fullPool.filter((perk) => !excludedSlugs.has(perk.slug))
-      : fullPool;
+  const pool = getAvailablePool(role, excludedSlugs);
   // If exclusions leave too few perks to fill a build, fall back to the
-  // full pool rather than showing a broken/short grid.
+  // full pool rather than showing a broken/short grid. Callers that need to
+  // know when the pool is truly exhausted (e.g. Battle Royale mode) should
+  // check getAvailablePool().length themselves before calling this.
   const source = pool.length >= count ? pool : fullPool;
-
-  const shuffled = [...source];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled.slice(0, count);
+  return shuffle(source).slice(0, count);
 }
