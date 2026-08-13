@@ -1,9 +1,15 @@
 import perksData from "@/data/perks.json";
 import metaData from "@/data/meta.json";
+import charactersData from "@/data/characters.json";
 import type { Perk, PerkRole, PerksMeta } from "./types";
 
 export const perks: Perk[] = perksData as Perk[];
 export const perksMeta: PerksMeta = metaData as PerksMeta;
+const characterPortraits: Record<string, string> = charactersData;
+
+export function getCharacterPortrait(character: string): string | undefined {
+  return characterPortraits[character];
+}
 
 const perksBySlug = new Map(perks.map((perk) => [perk.slug, perk]));
 

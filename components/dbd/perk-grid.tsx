@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Copy, Info, X } from "lucide-react";
 import type { Perk } from "@/lib/types";
 import { withBasePath } from "@/lib/asset-path";
-import { isNewPerk } from "@/lib/perks";
+import { isNewPerk, getCharacterPortrait } from "@/lib/perks";
 import { ROLE_COLOR } from "@/lib/role-color";
 import { cn } from "@/lib/cn";
 import { useT } from "@/lib/i18n";
@@ -133,6 +133,7 @@ function PerkDetailModal({
 }) {
   const t = useT();
   const roleColor = perk ? ROLE_COLOR[perk.role] : null;
+  const portrait = perk ? getCharacterPortrait(perk.character) : undefined;
 
   return (
     <AnimatePresence>
@@ -202,6 +203,32 @@ function PerkDetailModal({
                   </p>
                 </div>
               </div>
+
+              {portrait && (
+                <div className="mt-4 flex items-center gap-3 rounded-xl border border-border bg-surface/60 p-3">
+                  <span
+                    className={cn(
+                      "relative shrink-0 overflow-hidden rounded-full ring-2 ring-offset-2 ring-offset-surface",
+                      roleColor.ring,
+                    )}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element -- next/image ignores basePath for unoptimized runtime src, see lib/asset-path.ts */}
+                    <img
+                      src={withBasePath(portrait)}
+                      alt={perk.character}
+                      width={48}
+                      height={48}
+                      className="size-12 object-cover"
+                    />
+                  </span>
+                  <div>
+                    <p className="text-[11px] text-muted">
+                      {t({ ru: "Персонаж", en: "Character" })}
+                    </p>
+                    <p className="text-sm font-medium text-foreground">{perk.character}</p>
+                  </div>
+                </div>
+              )}
 
               <p className="mt-4 text-sm leading-relaxed text-muted">
                 {perk.description}

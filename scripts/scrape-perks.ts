@@ -20,9 +20,11 @@ const SOURCE_URL =
   "https://deadbydaylight.fandom.com/api.php?action=parse&page=Perks&format=json&prop=text";
 const DATA_DIR = join(__dirname, "../data");
 const PUBLIC_PERKS_DIR = join(__dirname, "../public/perks");
+const PUBLIC_CHARACTERS_DIR = join(__dirname, "../public/characters");
 const PERKS_JSON = join(DATA_DIR, "perks.json");
 const META_JSON = join(DATA_DIR, "meta.json");
 const TRANSLATIONS_JSON = join(DATA_DIR, "translations.ru.json");
+const CHARACTERS_JSON = join(DATA_DIR, "characters.json");
 
 const ICON_SIZE = 128;
 const TABLE_INDEX_BY_ROLE: Record<PerkRole, number> = {
@@ -36,6 +38,16 @@ interface ScrapedRow {
   description: string;
   character: string;
   iconSourceUrl: string;
+  characterPortraitUrl: string;
+}
+
+function loadPreviousCharacters(): Record<string, string> {
+  if (!existsSync(CHARACTERS_JSON)) return {};
+  try {
+    return JSON.parse(readFileSync(CHARACTERS_JSON, "utf8"));
+  } catch {
+    return {};
+  }
 }
 
 function loadTranslations(): Record<string, string> {
@@ -109,12 +121,15 @@ function parseRole($: cheerio.CheerioAPI, role: PerkRole): ScrapedRow[] {
     const iconSourceUrl = iconCell.find("img").attr("data-src") ?? "";
     if (!name || !iconSourceUrl) return;
 
+    const portraitSrc = characterCell.find(".charPortraitWrapper img").attr("data-src") ?? "";
+
     rows.push({
       name,
       slug: slugify(name),
       description: cleanDescription(descriptionCell.text()),
       character: cleanText(characterCell.text()),
       iconSourceUrl: iconSourceUrl.split("/revision/")[0], // strip cache-buster path segment
+      characterPortraitUrl: portraitSrc ? portraitSrc.split("/revision/")[0] : "",
     });
   });
 
@@ -152,6 +167,37 @@ async function downloadIcon(
   return destRelative;
 }
 
+async function downloadPortrait(
+  characterName: string,
+  sourceUrl: string,
+  previous: Record<string, string>,
+): Promise<string> {
+  const slug = slugify(characterName);
+  const destRelative = `/characters/${slug}.webp`;
+  const destAbsolute = join(PUBLIC_CHARACTERS_DIR, `${slug}.webp`);
+
+  if (previous[characterName] === destRelative && existsSync(destAbsolute)) {
+    // Skip re-downloading when we already have this character's portrait.
+    return destRelative;
+  }
+
+  const res = await fetch(sourceUrl, { headers: REQUEST_HEADERS });
+  if (!res.ok) {
+    throw new Error(
+      `Failed to download portrait for ${characterName}: ${res.status} ${res.statusText}`,
+    );
+  }
+  const buffer = Buffer.from(await res.arrayBuffer());
+
+  mkdirSync(dirname(destAbsolute), { recursive: true });
+  await sharp(buffer)
+    .resize(256, 256, { fit: "cover" })
+    .webp({ quality: 90 })
+    .toFile(destAbsolute);
+
+  return destRelative;
+}
+
 async function main() {
   console.log(`Fetching ${WIKI_PAGE_URL} via MediaWiki API ...`);
   const html = await fetchWikiPageHtml();
@@ -161,9 +207,11 @@ async function main() {
   const previous = new Map(
     loadPreviousPerks().map((p) => [`${p.role}/${p.slug}`, p]),
   );
+  const previousCharacters = loadPreviousCharacters();
   const scrapedAt = new Date().toISOString();
 
   const perks: Perk[] = [];
+  const characterPortraitUrls = new Map<string, string>();
   for (const role of Object.keys(TABLE_INDEX_BY_ROLE) as PerkRole[]) {
     const rows = parseRole($, role);
     console.log(`Found ${rows.length} ${role} perks`);
@@ -180,8 +228,17 @@ async function main() {
         icon,
         addedAt: prev?.addedAt ?? scrapedAt,
       });
+      if (row.character && row.characterPortraitUrl && !characterPortraitUrls.has(row.character)) {
+        characterPortraitUrls.set(row.character, row.characterPortraitUrl);
+      }
     }
   }
+
+  const characters: Record<string, string> = {};
+  for (const [characterName, sourceUrl] of characterPortraitUrls) {
+    characters[characterName] = await downloadPortrait(characterName, sourceUrl, previousCharacters);
+  }
+  console.log(`Found ${characterPortraitUrls.size} unique characters`);
 
   if (perks.length === 0) {
     throw new Error("Scraped 0 perks — the wiki's table structure may have changed.");
@@ -197,6 +254,7 @@ async function main() {
   mkdirSync(DATA_DIR, { recursive: true });
   writeFileSync(PERKS_JSON, JSON.stringify(perks, null, 2) + "\n");
   writeFileSync(META_JSON, JSON.stringify(meta, null, 2) + "\n");
+  writeFileSync(CHARACTERS_JSON, JSON.stringify(characters, null, 2) + "\n");
 
   console.log(
     `Wrote ${perks.length} perks (${meta.survivorCount} survivor / ${meta.killerCount} killer) -> ${PERKS_JSON}`,
