@@ -16,8 +16,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
-      - run: npx tsc --noEmit
-      - name: Build (static export)
+      - name: Build (static export, includes typecheck)
         run: npm run build
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
