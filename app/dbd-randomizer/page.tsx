@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { VideoEmbed } from "@/components/video-embed";
 import { RandomizerBoard } from "@/components/dbd/randomizer-board";
+import { EasterEgg } from "@/components/dbd/easter-egg";
 import { perksMeta } from "@/lib/perks";
 import trailer from "@/data/trailer.json";
 
@@ -17,6 +18,7 @@ export default function DbdRandomizerPage() {
 
   return (
     <div className="flex flex-col items-center gap-10 text-center">
+      <EasterEgg />
       <div>
         <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
           Dead by Daylight — Рандомайзер Перков

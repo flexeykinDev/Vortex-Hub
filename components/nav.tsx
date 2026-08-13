@@ -62,7 +62,7 @@ export function Nav() {
             className="pointer-events-none absolute inset-y-1.5 rounded-full border border-white/25 bg-gradient-to-b from-white/20 via-white/8 to-white/[0.03] shadow-[inset_0_1px_0_rgba(255,255,255,0.5),inset_0_-6px_10px_rgba(255,255,255,0.05),0_8px_20px_rgba(0,0,0,0.35)] backdrop-blur-md"
             animate={{ left: glass.left, width: glass.width, opacity: 1 }}
             initial={false}
-            transition={{ type: "spring", stiffness: 500, damping: 32, mass: 0.7 }}
+            transition={{ type: "spring", stiffness: 260, damping: 32, mass: 1 }}
           >
             <div className="absolute inset-x-3 top-0 h-px rounded-full bg-white/60 blur-[1px]" />
           </motion.div>
