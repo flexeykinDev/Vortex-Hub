@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: dark;
   --background: #0b0c0f;
   --surface: #14161b;
   --surface-hover: #1b1e25;
@@ -10,6 +11,19 @@
   --accent: #34d399;
   --accent-strong: #10b981;
   --accent-foreground: #04140d;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --background: #f7f8f9;
+  --surface: #ffffff;
+  --surface-hover: #eef0f2;
+  --border: #e2e5e9;
+  --foreground: #14161b;
+  --muted: #62697a;
+  --accent: #0d9668;
+  --accent-strong: #0b7a55;
+  --accent-foreground: #ffffff;
 }
 
 @theme inline {

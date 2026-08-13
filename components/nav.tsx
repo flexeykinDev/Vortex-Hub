@@ -6,6 +6,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Code2, Dices, Ghost, Home, Music } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { ThemeToggle } from "./theme-toggle";
 
 const NAV_LINKS = [
   { href: "/", label: "Главная", icon: Home },
@@ -90,6 +91,7 @@ export function Nav() {
             </Link>
           );
         })}
+        <ThemeToggle />
       </nav>
     </header>
   );
