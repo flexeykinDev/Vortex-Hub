@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Dices, Ghost, Home, Music } from "lucide-react";
+import { Code2, Dices, Ghost, Home, Music } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 const NAV_LINKS = [
@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { href: "/spotx", label: "SpotX", icon: Music },
   { href: "/lost-souls", label: "Lost Souls", icon: Ghost },
   { href: "/dbd-randomizer", label: "DBD Randomizer", icon: Dices },
+  { href: "/projects", label: "Мои проекты", icon: Code2 },
 ];
 
 interface GlassRect {

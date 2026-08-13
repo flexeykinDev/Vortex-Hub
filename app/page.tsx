@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Dices, Ghost, Music } from "lucide-react";
+import { ArrowRight, Code2, Dices, Ghost, Music } from "lucide-react";
 
 const TOOLS = [
   {
@@ -19,6 +19,12 @@ const TOOLS = [
     title: "DBD Randomizer",
     description: "Рандомайзер перков для Dead by Daylight",
     icon: Dices,
+  },
+  {
+    href: "/projects",
+    title: "Мои проекты",
+    description: "Что я пишу и поддерживаю",
+    icon: Code2,
   },
 ];
 
