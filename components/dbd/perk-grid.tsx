@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Copy } from "lucide-react";
 import type { Perk } from "@/lib/types";
+import { withBasePath } from "@/lib/asset-path";
 
 export function PerkGrid({
   perks,
@@ -42,8 +42,9 @@ export function PerkGrid({
             className="group flex cursor-pointer flex-col items-center gap-2 rounded-2xl border border-border bg-surface p-3 text-center transition-colors hover:border-accent/40 hover:bg-surface-hover"
           >
             <span className="relative">
-              <Image
-                src={perk.icon}
+              {/* eslint-disable-next-line @next/next/no-img-element -- next/image ignores basePath for unoptimized runtime src, see lib/asset-path.ts */}
+              <img
+                src={withBasePath(perk.icon)}
                 alt={perk.name[language]}
                 width={96}
                 height={96}
