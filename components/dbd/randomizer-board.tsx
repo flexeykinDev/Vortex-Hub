@@ -6,6 +6,7 @@ import { getPerkBySlug, getRandomPerks } from "@/lib/perks";
 import type { Perk, PerkRole } from "@/lib/types";
 import { cn } from "@/lib/cn";
 import { useMounted } from "@/lib/use-mounted";
+import { ROLE_COLOR } from "@/lib/role-color";
 import { PerkGrid } from "./perk-grid";
 import { CopyToast } from "./copy-toast";
 import { ExcludePanel } from "./exclude-panel";
@@ -143,21 +144,24 @@ export function RandomizerBoard() {
   return (
     <div className="flex flex-col items-center gap-6">
       <div className="flex flex-wrap items-center justify-center gap-2">
-        {(Object.keys(ROLE_LABEL) as PerkRole[]).map((r) => (
-          <button
-            key={r}
-            type="button"
-            onClick={() => selectRole(r)}
-            className={cn(
-              "rounded-full border px-5 py-2 text-sm font-medium capitalize transition-colors",
-              role === r
-                ? "border-accent/40 bg-accent/10 text-accent"
-                : "border-border text-muted hover:bg-surface-hover hover:text-foreground",
-            )}
-          >
-            {r === "survivor" ? "Выживший" : "Убийца"}
-          </button>
-        ))}
+        {(Object.keys(ROLE_LABEL) as PerkRole[]).map((r) => {
+          const roleColor = ROLE_COLOR[r];
+          return (
+            <button
+              key={r}
+              type="button"
+              onClick={() => selectRole(r)}
+              className={cn(
+                "rounded-full border px-5 py-2 text-sm font-medium capitalize transition-colors",
+                role === r
+                  ? cn(roleColor.border, roleColor.bg, roleColor.text)
+                  : "border-border text-muted hover:bg-surface-hover hover:text-foreground",
+              )}
+            >
+              {r === "survivor" ? "Выживший" : "Убийца"}
+            </button>
+          );
+        })}
       </div>
 
       <p className="text-sm text-muted">

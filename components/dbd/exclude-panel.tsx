@@ -6,6 +6,7 @@ import type { PerkRole } from "@/lib/types";
 import { getPerksByRole } from "@/lib/perks";
 import { withBasePath } from "@/lib/asset-path";
 import { cn } from "@/lib/cn";
+import { ROLE_COLOR } from "@/lib/role-color";
 
 export function ExcludePanel({
   open,
@@ -25,6 +26,7 @@ export function ExcludePanel({
   onClose: () => void;
 }) {
   const perksForRole = getPerksByRole(role);
+  const roleColor = ROLE_COLOR[role];
 
   return (
     <AnimatePresence>
@@ -83,7 +85,7 @@ export function ExcludePanel({
                       "flex flex-col items-center gap-1 rounded-xl border p-2 text-center transition-all",
                       excluded
                         ? "border-border/40 opacity-35 grayscale"
-                        : "border-border hover:border-accent/40",
+                        : cn("border-border", roleColor.hoverBorder),
                     )}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element -- next/image ignores basePath for unoptimized runtime src, see lib/asset-path.ts */}

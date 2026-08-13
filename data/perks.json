@@ -580,7 +580,7 @@
     "role": "survivor",
     "name": {
       "en": "Detective's Hunch",
-      "ru": "Detective's Hunch"
+      "ru": "Детективное чутье"
     },
     "description": "Unlocks potential in your Aura-reading ability. Each time a Generator is completed, the Auras of any Generators, Chests, and Totemswithin 32/48/64 metres are revealed to you for 10 seconds. If you are holding a Map, any objects revealed by Detective's Hunch will automatically be tracked by it. \"Are you able to tell us where you were last night?\" — Detective David Tapp",
     "character": "David",
@@ -1564,7 +1564,7 @@
     "role": "survivor",
     "name": {
       "en": "Streetwise",
-      "ru": "Streetwise"
+      "ru": "Уроки улиц"
     },
     "description": "This description is based on the changes announced for or featured in the upcoming Patch 3.0.0Long nights out taught you to do a lot with what you have got. Increases the Efficiency of your Items by 15/20/25 %. Streetwise extends its effect to all other Survivors within 8 metres of your location and lingers for 15 seconds. \"You are doing it wrong! Let me show you how it is done.\" — Nea Karlsson",
     "character": "Nea",
@@ -1744,7 +1744,7 @@
     "role": "survivor",
     "name": {
       "en": "We're Gonna Live Forever",
-      "ru": "We're Gonna Live Forever"
+      "ru": "Мы Будем Жить Вечно"
     },
     "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.3.2Your few friends deserve the best protection. You benefit from the following effect when healing a dying Survivor: Increases your Healing speed by +100 %. Any dying Survivor you heal back to the Injured State benefits from the following effect: Grants the Endurance Status Effect for 6/8/10 seconds. This effect can only be triggered once every 30 seconds. \"Come on then, let's ave' it! I don't give a shit pal.\" — David King",
     "character": "David",
@@ -1864,7 +1864,7 @@
     "role": "killer",
     "name": {
       "en": "Barbecue & Chilli",
-      "ru": "Barbecue & Chilli"
+      "ru": "Барбекю и чили"
     },
     "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.1.0A deep bond with The Entity unlocks potential in one's Aura-reading ability. After hooking a Survivor, all Survivors who are at least 60/50/40 metres away from that Hook have their Aura revealed to you for 5 seconds. \"I just can't take no pleasure in killing. There's just some things you gotta do. Don't mean you have to like it.\" — Drayton Sawyer",
     "character": "Cannibal",
@@ -2224,7 +2224,7 @@
     "role": "killer",
     "name": {
       "en": "Forever Entwined",
-      "ru": "Forever Entwined"
+      "ru": "Переплетенные навсегда"
     },
     "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.6.0Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise Please contact Jouki",
     "character": "Ghoul",
@@ -2320,7 +2320,7 @@
     "role": "killer",
     "name": {
       "en": "Haywire",
-      "ru": "Haywire"
+      "ru": "Неполадки"
     },
     "description": "This description is based on the changes announced for or featured in the upcoming Patch 9.0.0Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise Please contact Jouki",
     "character": "Animatronic",
@@ -2332,7 +2332,7 @@
     "role": "killer",
     "name": {
       "en": "Help Wanted",
-      "ru": "Help Wanted"
+      "ru": "Требуются работники"
     },
     "description": "This description is based on the changes announced for or featured in the upcoming Patch 9.0.0Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise Please contact Jouki",
     "character": "Animatronic",
@@ -2344,7 +2344,7 @@
     "role": "killer",
     "name": {
       "en": "Hex: Blood Favour",
-      "ru": "Hex: Blood Favour"
+      "ru": "Порча: благоволение крови"
     },
     "description": "A Hex that gains the favour of The Entity when blood is spilt. Whenever a Survivor loses a Health State by any means and thus enters the Injured State or the Dying State, Hex: Blood Favour calls upon The Entity to block all Pallets within 24/28/32 metres of that Survivor's location from being pulled down for the next 15 seconds. All effects of the Hex Perk persist until its Hex Totem is cleansed or blessed. \"It would be no leap of the imagination to suggest that the Trials are a biological response of sorts.\" — Journal of Talbot Grimes",
     "character": "Blight",
@@ -2392,7 +2392,7 @@
     "role": "killer",
     "name": {
       "en": "Hex: Fortune's Fool",
-      "ru": "Hex: Fortune's Fool"
+      "ru": "Порча: шут судьбы"
     },
     "description": "Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise Please contact Jouki",
     "character": "Cenobite",
@@ -2440,7 +2440,7 @@
     "role": "killer",
     "name": {
       "en": "Hex: Nothing But Misery",
-      "ru": "Hex: Nothing But Misery"
+      "ru": "Порча: только отчаяние"
     },
     "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.6.0Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise Please contact Jouki",
     "character": "Ghoul",
@@ -2764,7 +2764,7 @@
     "role": "killer",
     "name": {
       "en": "Mindbreaker",
-      "ru": "Mindbreaker"
+      "ru": "Разрушитель разума"
     },
     "description": "Your distressing presence drains and weakens your prey. All Survivors repairing a Generator suffer from the following afflictions: Incurs the Blindness and Exhausted Status Effects for the duration of the Repair action. If a Survivor was already suffering from Exhausted prior to Mindbreaker affecting them, the Status Effect's timer will be paused and not recover for the duration of the Repair action. Both Status Effects linger for another 3/4/5 seconds after a Survivor stops repairing. \"The specimen's apparent telepathic ability can evoke feelings of dread and fatigue in nearby individuals.\" — Hawkins National Laboratory",
     "character": "Demogorgon",
@@ -2800,7 +2800,7 @@
     "role": "killer",
     "name": {
       "en": "No Holds Barred",
-      "ru": "No Holds Barred"
+      "ru": "Все средства хороши"
     },
     "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.0.0Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise Please contact Jouki",
     "character": "Cenobite",
@@ -2836,7 +2836,7 @@
     "role": "killer",
     "name": {
       "en": "None Are Free",
-      "ru": "None Are Free"
+      "ru": "Все несвободны"
     },
     "description": "This description is based on the changes announced for or featured in the upcoming Patch 8.6.2Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise Please contact Jouki",
     "character": "Ghoul",
@@ -2896,7 +2896,7 @@
     "role": "killer",
     "name": {
       "en": "Phantom Fear",
-      "ru": "Phantom Fear"
+      "ru": "Фантомный страх"
     },
     "description": "This description is based on the changes announced for or featured in the upcoming Patch 9.0.0Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise Please contact Jouki",
     "character": "Animatronic",
@@ -3028,7 +3028,7 @@
     "role": "killer",
     "name": {
       "en": "Scourge Hook: Monstrous Shrine",
-      "ru": "Scourge Hook: Monstrous Shrine"
+      "ru": "Секущий крюк: чудовищный храм"
     },
     "description": "This description is based on the changes announced for or featured in the upcoming Patch 6.1.0Your fervent care of the Hooks found in the Basement has aroused The Entity's interest. At the start of the Trial, 4 random Hooks, as well as the 4 Basement Hooks, are changed into Scourge Hooks: The Auras of Scourge Hooks are revealed to you in white. Whenever a Survivor is hooked onto a Scourge Hook, the following effect applies when you are farther than 24 metres from the hooked Survivor: Accelerates the Sacrifice Process by 10/15/20 %. \"Then you will know that there is no escape. When hanging in the depths, you face the dark one.\"",
     "character": ".All",
@@ -3052,7 +3052,7 @@
     "role": "killer",
     "name": {
       "en": "Scourge Hook: Weeping Wounds",
-      "ru": "Scourge Hook: Weeping Wounds"
+      "ru": "Секущий крюк: сочащиеся раны"
     },
     "description": "This description is based on the changes announced for or featured in the upcoming Patch 7.6.0Unable to retrieve the Perk description or unable to display it. It can be added to the Datatable/Loadout. Otherwise Please contact Jouki",
     "character": "Cenobite",
