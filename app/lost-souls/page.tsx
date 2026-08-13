@@ -35,9 +35,9 @@ const STEPS = [
     label: "Скачать основную сборку (файлы с модами и настройками)",
   },
   {
-    href: "https://www.radmin-vpn.com",
-    label: "Скачать Radmin VPN",
-    note: "если планируете играть с другом по радмину, отключите брандмауэр Windows на время игры",
+    href: "https://store.steampowered.com/app/4963920/Porthole__Local_Port_Sharing/",
+    label: "Скачать Porthole (в Steam)",
+    note: "чтобы играть с другом онлайн без пробрасывания портов и без роутера",
   },
 ];
 
@@ -74,6 +74,18 @@ export default function LostSoulsPage() {
             </li>
           ))}
         </ol>
+
+        <div className="mt-4 rounded-xl border border-border bg-black/20 p-4 text-left text-sm text-muted">
+          <p className="font-medium text-foreground">Что такое Porthole?</p>
+          <p className="mt-1.5">
+            Бесплатная замена Hamachi/Radmin VPN, распространяется через
+            Steam. Открывает друг другу доступ только к одному нужному порту
+            (например, порту Minecraft-сервера) через сеть Steam — без
+            пробрасывания портов, публичного IP и настройки роутера.
+            Достаточно создать лобби, выбрать порт и пригласить друга через
+            Steam или коротким кодом-приглашением.
+          </p>
+        </div>
 
         <div className="mt-6">
           <DownloadLink href={BUILD_URL}>Скачать</DownloadLink>
