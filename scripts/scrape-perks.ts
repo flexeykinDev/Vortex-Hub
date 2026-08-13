@@ -150,6 +150,7 @@ async function main() {
   const previous = new Map(
     loadPreviousPerks().map((p) => [`${p.role}/${p.slug}`, p]),
   );
+  const scrapedAt = new Date().toISOString();
 
   const perks: Perk[] = [];
   for (const role of Object.keys(TABLE_INDEX_BY_ROLE) as PerkRole[]) {
@@ -158,6 +159,7 @@ async function main() {
 
     for (const row of rows) {
       const icon = await downloadIcon(row, role, previous);
+      const prev = previous.get(`${role}/${row.slug}`);
       perks.push({
         slug: row.slug,
         role,
@@ -165,6 +167,7 @@ async function main() {
         description: row.description,
         character: row.character,
         icon,
+        addedAt: prev?.addedAt ?? scrapedAt,
       });
     }
   }
@@ -174,7 +177,7 @@ async function main() {
   }
 
   const meta: PerksMeta = {
-    scrapedAt: new Date().toISOString(),
+    scrapedAt,
     sourceUrl: WIKI_PAGE_URL,
     survivorCount: perks.filter((p) => p.role === "survivor").length,
     killerCount: perks.filter((p) => p.role === "killer").length,

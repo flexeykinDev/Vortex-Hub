@@ -10,6 +10,9 @@ export interface Perk {
   description: string;
   character: string;
   icon: string;
+  /** ISO date this perk was first seen by the scraper — carried forward
+   *  across runs so it doesn't reset every scrape. */
+  addedAt: string;
 }
 
 export interface PerksMeta {

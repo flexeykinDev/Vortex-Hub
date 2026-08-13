@@ -8,8 +8,8 @@ OUT_DIR = "D:/VScode/dev/debug/vortex-info-next/public/projects"
 CANVAS_BG = (11, 12, 15)  # matches --background in app/globals.css
 TARGET_WIDTH = 900
 HOLD_MS = 2200
-FADE_STEPS = 10
-FADE_STEP_MS = 30
+FADE_STEPS = 6
+FADE_STEP_MS = 40
 
 
 def fit_on_canvas(path, width, height, bg=CANVAS_BG):
@@ -40,7 +40,7 @@ def build_gif(frames_paths, out_path, width, height):
 
     # Shared adaptive palette across all frames keeps color banding low
     # while still cutting file size roughly 3-4x vs full RGB-per-frame GIFs.
-    base_palette = sequence[0].convert("P", palette=Image.ADAPTIVE, colors=192)
+    base_palette = sequence[0].convert("P", palette=Image.ADAPTIVE, colors=128)
     quantized = [
         f.quantize(palette=base_palette, dither=Image.FLOYDSTEINBERG) for f in sequence
     ]
@@ -64,8 +64,8 @@ build_gif(
         "D:/VScode/dev/debug/the-counter-web DOTA2/docs/screenshot-detail.png",
     ],
     f"{OUT_DIR}/dota-counter-web.gif",
-    width=700,
-    height=438,
+    width=560,
+    height=350,
 )
 
 # roflo-pinterest: readme assets (tray icon states -> menu -> workflow)
@@ -76,6 +76,6 @@ build_gif(
         "D:/VScode/dev/debug/roflo-pinterest/assets/readme/workflow.png",
     ],
     f"{OUT_DIR}/roflo-pinterest.gif",
-    width=700,
-    height=389,
+    width=560,
+    height=311,
 )

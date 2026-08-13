@@ -5,6 +5,8 @@ import { DownloadLink } from "@/components/download-link";
 
 export const metadata: Metadata = {
   title: "SpotX — Vortex Info",
+  description:
+    "SpotX — бесплатный модифицированный клиент Spotify для Windows: блокирует рекламу, снимает лимит скипов, убирает подкасты. Инструкция по установке.",
 };
 
 export default function SpotXPage() {

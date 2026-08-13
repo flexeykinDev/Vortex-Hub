@@ -5,6 +5,8 @@ import { withBasePath } from "@/lib/asset-path";
 
 export const metadata: Metadata = {
   title: "Мои проекты — Vortex Info",
+  description:
+    "The Counter Web — интерактивный граф контрпиков Dota 2, и Roflo Pinterest Wallpaper — трей-приложение для смены обоев из Pinterest.",
 };
 
 export default function ProjectsPage() {
@@ -27,6 +29,8 @@ export default function ProjectsPage() {
             <img
               src={withBasePath(project.gif)}
               alt={`Демонстрация: ${project.title}`}
+              loading="lazy"
+              decoding="async"
               className="aspect-video w-full object-cover"
             />
             <div className="flex flex-1 flex-col p-6 text-left">

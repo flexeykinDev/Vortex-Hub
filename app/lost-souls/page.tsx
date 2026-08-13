@@ -5,6 +5,8 @@ import { DownloadLink } from "@/components/download-link";
 
 export const metadata: Metadata = {
   title: "Lost Souls — Vortex Info",
+  description:
+    "Приватная сборка Minecraft 1.20.1 с модами — пошаговая инструкция по установке лаунчера, Forge и подключению по сети через Porthole.",
 };
 
 const BUILD_URL =
