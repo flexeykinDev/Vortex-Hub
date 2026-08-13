@@ -3,7 +3,7 @@
 Личный сайт с полезными инструментами и рандомайзером перков Dead by
 Daylight. TypeScript + React + Next.js (App Router) + Tailwind CSS.
 
-**Живой сайт:** https://flexeykinDev.github.io/vortex-info/
+**Живой сайт:** https://flexeykindev.github.io/Vortex-Info/
 
 ## Что внутри
 
