@@ -6,14 +6,20 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Code2, Dices, Ghost, Home, Music } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { useT } from "@/lib/i18n";
 import { ThemeToggle } from "./theme-toggle";
+import { LanguageToggle } from "./language-toggle";
 
 const NAV_LINKS = [
-  { href: "/", label: "Главная", icon: Home },
-  { href: "/spotx", label: "SpotX", icon: Music },
-  { href: "/lost-souls", label: "Lost Souls", icon: Ghost },
-  { href: "/dbd-randomizer", label: "DBD Randomizer", icon: Dices },
-  { href: "/projects", label: "Мои проекты", icon: Code2 },
+  { href: "/", label: { ru: "Главная", en: "Home" }, icon: Home },
+  { href: "/spotx", label: { ru: "SpotX", en: "SpotX" }, icon: Music },
+  { href: "/lost-souls", label: { ru: "Lost Souls", en: "Lost Souls" }, icon: Ghost },
+  {
+    href: "/dbd-randomizer",
+    label: { ru: "DBD Randomizer", en: "DBD Randomizer" },
+    icon: Dices,
+  },
+  { href: "/projects", label: { ru: "Мои проекты", en: "My Projects" }, icon: Code2 },
 ];
 
 interface GlassRect {
@@ -23,6 +29,7 @@ interface GlassRect {
 
 export function Nav() {
   const pathname = usePathname();
+  const t = useT();
   const containerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
   const [hoveredHref, setHoveredHref] = useState<string | null>(null);
@@ -87,11 +94,14 @@ export function Nav() {
               )}
             >
               <Icon className="size-4" strokeWidth={2} />
-              {label}
+              {t(label)}
             </Link>
           );
         })}
-        <ThemeToggle />
+        <div className="flex items-center gap-2">
+          <LanguageToggle />
+          <ThemeToggle />
+        </div>
       </nav>
     </header>
   );

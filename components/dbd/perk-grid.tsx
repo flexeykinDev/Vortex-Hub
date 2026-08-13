@@ -8,6 +8,7 @@ import { withBasePath } from "@/lib/asset-path";
 import { isNewPerk } from "@/lib/perks";
 import { ROLE_COLOR } from "@/lib/role-color";
 import { cn } from "@/lib/cn";
+import { useT } from "@/lib/i18n";
 
 export function PerkGrid({
   perks,
@@ -22,6 +23,7 @@ export function PerkGrid({
   emptyMessage?: string;
   onCopy: (perk: Perk) => void;
 }) {
+  const t = useT();
   const [detailPerk, setDetailPerk] = useState<Perk | null>(null);
 
   if (loading) {
@@ -40,7 +42,7 @@ export function PerkGrid({
   if (perks.length === 0) {
     return (
       <div className="flex min-h-[220px] w-full max-w-md items-center justify-center rounded-2xl border border-dashed border-border p-6 text-center text-sm text-muted">
-        {emptyMessage ?? "Пусто"}
+        {emptyMessage ?? t({ ru: "Пусто", en: "Nothing here" })}
       </div>
     );
   }
@@ -76,7 +78,9 @@ export function PerkGrid({
                 <button
                   type="button"
                   onClick={() => setDetailPerk(perk)}
-                  aria-label={`Описание: ${perk.name[language]}`}
+                  aria-label={
+                    t({ ru: "Описание:", en: "Description:" }) + " " + perk.name[language]
+                  }
                   className="absolute top-1.5 right-1.5 z-10 flex size-6 items-center justify-center rounded-full bg-black/40 text-white/80 opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100 hover:bg-black/60 hover:text-white"
                 >
                   <Info className="size-3.5" />
@@ -127,6 +131,7 @@ function PerkDetailModal({
   language: "en" | "ru";
   onClose: () => void;
 }) {
+  const t = useT();
   const roleColor = perk ? ROLE_COLOR[perk.role] : null;
 
   return (
@@ -161,7 +166,7 @@ function PerkDetailModal({
               <button
                 type="button"
                 onClick={onClose}
-                aria-label="Закрыть"
+                aria-label={t({ ru: "Закрыть", en: "Close" })}
                 className="absolute top-0 right-0 flex size-7 items-center justify-center rounded-full text-muted transition-colors hover:bg-surface-hover hover:text-foreground"
               >
                 <X className="size-4" />
@@ -189,7 +194,9 @@ function PerkDetailModal({
                   </p>
                   <p className="flex items-center gap-1.5 text-xs">
                     <span className={cn("font-medium", roleColor.text)}>
-                      {perk.role === "survivor" ? "Выживший" : "Убийца"}
+                      {perk.role === "survivor"
+                        ? t({ ru: "Выживший", en: "Survivor" })
+                        : t({ ru: "Убийца", en: "Killer" })}
                     </span>
                     <span className="text-muted">· {perk.character}</span>
                   </p>

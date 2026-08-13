@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Play } from "lucide-react";
+import { useT } from "@/lib/i18n";
 
 function extractVideoId(src: string): string | null {
   const match = src.match(/embed\/([a-zA-Z0-9_-]+)/);
@@ -15,6 +16,7 @@ function withAutoplay(src: string): string {
 }
 
 export function VideoEmbed({ src, title }: { src: string; title: string }) {
+  const t = useT();
   const [playing, setPlaying] = useState(false);
   const videoId = extractVideoId(src);
 
@@ -34,7 +36,7 @@ export function VideoEmbed({ src, title }: { src: string; title: string }) {
           type="button"
           onClick={() => setPlaying(true)}
           className="group relative size-full cursor-pointer"
-          aria-label={`Воспроизвести: ${title}`}
+          aria-label={t({ ru: "Воспроизвести:", en: "Play:" }) + " " + title}
         >
           {videoId && (
             // eslint-disable-next-line @next/next/no-img-element

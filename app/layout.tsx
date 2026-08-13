@@ -4,6 +4,7 @@ import Script from "next/script";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
+import { LanguageProvider } from "@/lib/i18n";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -55,11 +56,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Script id="theme-init" strategy="beforeInteractive">
           {`try{if(localStorage.getItem('${THEME_STORAGE_KEY}')==='light')document.documentElement.dataset.theme='light'}catch(e){}`}
         </Script>
-        <Nav />
-        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10">
-          {children}
-        </main>
-        <Footer />
+        <LanguageProvider>
+          <Nav />
+          <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10">
+            {children}
+          </main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -1,19 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import {
-  Languages,
-  Link2,
-  ListFilter,
-  RefreshCw,
-  Skull,
-  BarChart3,
-} from "lucide-react";
+import { Link2, ListFilter, RefreshCw, Skull, BarChart3 } from "lucide-react";
 import { getAvailablePool, getPerkBySlug, getRandomPerks } from "@/lib/perks";
 import type { Perk, PerkRole } from "@/lib/types";
 import { cn } from "@/lib/cn";
 import { useMounted } from "@/lib/use-mounted";
 import { ROLE_COLOR } from "@/lib/role-color";
+import { useLanguage, useT } from "@/lib/i18n";
 import { PerkGrid } from "./perk-grid";
 import { CopyToast } from "./copy-toast";
 import { ExcludePanel } from "./exclude-panel";
@@ -23,9 +17,13 @@ const DEFAULT_PERK_COUNT = 4;
 const EXCLUDED_STORAGE_KEY = "vortex-info:dbd-excluded-perks";
 const PERK_COUNT_STORAGE_KEY = "vortex-info:dbd-perk-count";
 const BR_STORAGE_KEY = "vortex-info:dbd-battle-royale";
-const ROLE_LABEL: Record<PerkRole, string> = {
-  survivor: "выжившего",
-  killer: "убийцы",
+const ROLE_LABEL: Record<PerkRole, { ru: string; en: string }> = {
+  survivor: { ru: "выжившего", en: "survivor" },
+  killer: { ru: "убийцы", en: "killer" },
+};
+const ROLE_NAME: Record<PerkRole, { ru: string; en: string }> = {
+  survivor: { ru: "Выживший", en: "Survivor" },
+  killer: { ru: "Убийца", en: "Killer" },
 };
 
 function loadExcludedSlugs(): Set<string> {
@@ -87,8 +85,9 @@ function writeBuildToUrl(role: PerkRole, perks: Perk[]) {
 }
 
 export function RandomizerBoard() {
+  const t = useT();
+  const { lang: language } = useLanguage();
   const [role, setRole] = useState<PerkRole>("survivor");
-  const [language, setLanguage] = useState<"en" | "ru">("ru");
   const [toast, setToast] = useState<string | null>(null);
   const [excludePanelOpen, setExcludePanelOpen] = useState(false);
   const [excludedSlugs, setExcludedSlugs] = useState<Set<string>>(loadExcludedSlugs);
@@ -195,8 +194,15 @@ export function RandomizerBoard() {
   function handleCopy(perk: Perk) {
     navigator.clipboard
       .writeText(perk.name[language])
-      .then(() => showToast(`«${perk.name[language]}» скопировано в буфер обмена!`))
-      .catch(() => showToast("Не удалось скопировать"));
+      .then(() =>
+        showToast(
+          t({
+            ru: `«${perk.name[language]}» скопировано в буфер обмена!`,
+            en: `"${perk.name[language]}" copied to clipboard!`,
+          }),
+        ),
+      )
+      .catch(() => showToast(t({ ru: "Не удалось скопировать", en: "Couldn't copy" })));
     if (battleRoyale) eliminateCurrentBuild();
   }
 
@@ -204,8 +210,12 @@ export function RandomizerBoard() {
     const text = perks.map((p) => p.name[language]).join(", ");
     navigator.clipboard
       .writeText(text)
-      .then(() => showToast("Весь билд скопирован в буфер обмена!"))
-      .catch(() => showToast("Не удалось скопировать"));
+      .then(() =>
+        showToast(
+          t({ ru: "Весь билд скопирован в буфер обмена!", en: "Full build copied to clipboard!" }),
+        ),
+      )
+      .catch(() => showToast(t({ ru: "Не удалось скопировать", en: "Couldn't copy" })));
     if (battleRoyale) eliminateCurrentBuild();
   }
 
@@ -213,8 +223,10 @@ export function RandomizerBoard() {
     writeBuildToUrl(role, perks);
     navigator.clipboard
       .writeText(window.location.href)
-      .then(() => showToast("Ссылка на билд скопирована!"))
-      .catch(() => showToast("Не удалось скопировать ссылку"));
+      .then(() => showToast(t({ ru: "Ссылка на билд скопирована!", en: "Build link copied!" })))
+      .catch(() =>
+        showToast(t({ ru: "Не удалось скопировать ссылку", en: "Couldn't copy the link" })),
+      );
   }
 
   function toggleBattleRoyale() {
@@ -256,14 +268,14 @@ export function RandomizerBoard() {
                   : "border-border text-muted hover:bg-surface-hover hover:text-foreground",
               )}
             >
-              {r === "survivor" ? "Выживший" : "Убийца"}
+              {t(ROLE_NAME[r])}
             </button>
           );
         })}
       </div>
 
       <div className="flex items-center gap-2 text-sm">
-        <span className="text-muted">Перков в билде:</span>
+        <span className="text-muted">{t({ ru: "Перков в билде:", en: "Perks per build:" })}</span>
         {Array.from({ length: MAX_PERK_COUNT + 1 }, (_, n) => n).map((n) => (
           <button
             key={n}
@@ -283,12 +295,17 @@ export function RandomizerBoard() {
 
       {perkCount === 0 ? (
         <p className="text-sm text-muted">
-          Испытание без перков для {ROLE_LABEL[role]} — удачи!
+          {t({
+            ru: `Испытание без перков для ${ROLE_LABEL[role].ru} — удачи!`,
+            en: `A no-perk challenge for ${ROLE_LABEL[role].en} — good luck!`,
+          })}
         </p>
       ) : (
         <p className="text-sm text-muted">
-          {battleRoyale ? "Battle Royale" : "Случайный билд"} для {ROLE_LABEL[role]} —
-          нажмите на перк, чтобы скопировать название
+          {t({
+            ru: `${battleRoyale ? "Battle Royale" : "Случайный билд"} для ${ROLE_LABEL[role].ru} — нажмите на перк, чтобы скопировать название`,
+            en: `${battleRoyale ? "Battle Royale" : "Random build"} for ${ROLE_LABEL[role].en} — click a perk to copy its name`,
+          })}
         </p>
       )}
 
@@ -301,16 +318,21 @@ export function RandomizerBoard() {
           )}
         >
           <Skull className={cn("size-8", roleColor.text)} />
-          <p className="font-semibold text-foreground">Пул перков исчерпан!</p>
+          <p className="font-semibold text-foreground">
+            {t({ ru: "Пул перков исчерпан!", en: "Perk pool exhausted!" })}
+          </p>
           <p className="text-sm text-muted">
-            Вы скопировали билды из всех доступных перков {ROLE_LABEL[role]}.
+            {t({
+              ru: `Вы скопировали билды из всех доступных перков ${ROLE_LABEL[role].ru}.`,
+              en: `You've copied builds from every available ${ROLE_LABEL[role].en} perk.`,
+            })}
           </p>
           <button
             type="button"
             onClick={restartBattleRoyale}
             className="mt-1 rounded-full bg-accent px-5 py-2 text-sm font-semibold text-accent-foreground transition-transform hover:scale-105 active:scale-95"
           >
-            Начать заново
+            {t({ ru: "Начать заново", en: "Start over" })}
           </button>
         </div>
       ) : (
@@ -319,7 +341,9 @@ export function RandomizerBoard() {
           language={language}
           loading={!mounted}
           emptyMessage={
-            perkCount === 0 ? "Ноль перков — режим испытания" : undefined
+            perkCount === 0
+              ? t({ ru: "Ноль перков — режим испытания", en: "Zero perks — challenge mode" })
+              : undefined
           }
           onCopy={handleCopy}
         />
@@ -333,7 +357,7 @@ export function RandomizerBoard() {
           className="flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-accent-foreground transition-transform hover:scale-105 active:scale-95 disabled:pointer-events-none disabled:opacity-40"
         >
           <RefreshCw className="size-4" />
-          Сгенерировать новый билд
+          {t({ ru: "Сгенерировать новый билд", en: "Generate a new build" })}
         </button>
         <button
           type="button"
@@ -341,7 +365,7 @@ export function RandomizerBoard() {
           disabled={perks.length === 0}
           className="rounded-full border border-border px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-surface-hover hover:text-foreground disabled:pointer-events-none disabled:opacity-40"
         >
-          Скопировать весь билд
+          {t({ ru: "Скопировать весь билд", en: "Copy full build" })}
         </button>
         <button
           type="button"
@@ -349,7 +373,7 @@ export function RandomizerBoard() {
           className="flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-surface-hover hover:text-foreground"
         >
           <Link2 className="size-4" />
-          Поделиться
+          {t({ ru: "Поделиться", en: "Share" })}
         </button>
         <button
           type="button"
@@ -357,20 +381,12 @@ export function RandomizerBoard() {
           className="flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-surface-hover hover:text-foreground"
         >
           <ListFilter className="size-4" />
-          Настроить пул
+          {t({ ru: "Настроить пул", en: "Manage pool" })}
           {excludedSlugs.size > 0 && (
             <span className="rounded-full bg-accent/15 px-1.5 text-xs text-accent">
               {excludedSlugs.size}
             </span>
           )}
-        </button>
-        <button
-          type="button"
-          onClick={() => setLanguage((l) => (l === "en" ? "ru" : "en"))}
-          className="flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-muted transition-colors hover:bg-surface-hover hover:text-foreground"
-        >
-          <Languages className="size-4" />
-          {language === "ru" ? "на Русском" : "on English"}
         </button>
       </div>
 
@@ -385,12 +401,17 @@ export function RandomizerBoard() {
         )}
       >
         <Skull className="size-4" />
-        Battle Royale {battleRoyale ? "включён" : "выключен"}
+        {t({
+          ru: `Battle Royale ${battleRoyale ? "включён" : "выключен"}`,
+          en: `Battle Royale ${battleRoyale ? "on" : "off"}`,
+        })}
       </button>
       {battleRoyale && (
         <p className="max-w-md text-center text-xs text-muted">
-          Копирование билда навсегда убирает эти перки из пула — играйте, пока
-          не закончатся все {ROLE_LABEL[role]}.
+          {t({
+            ru: `Копирование билда навсегда убирает эти перки из пула — играйте, пока не закончатся все ${ROLE_LABEL[role].ru}.`,
+            en: `Copying a build permanently removes those perks from the pool — play until every ${ROLE_LABEL[role].en} perk is gone.`,
+          })}
         </p>
       )}
 
@@ -400,21 +421,23 @@ export function RandomizerBoard() {
         className="flex items-center gap-1.5 text-xs text-muted/60 transition-colors hover:text-muted"
       >
         <BarChart3 className="size-3.5" />
-        Статистика пула
+        {t({ ru: "Статистика пула", en: "Pool stats" })}
       </button>
       {showStats && mounted && (
         <div className="rounded-xl border border-border bg-surface px-4 py-3 text-center text-xs text-muted">
           <p>
-            Всего перков {ROLE_LABEL[role]}: <b className="text-foreground">{totalInRole}</b>
+            {t({ ru: `Всего перков ${ROLE_LABEL[role].ru}:`, en: `Total ${ROLE_LABEL[role].en} perks:` })}{" "}
+            <b className="text-foreground">{totalInRole}</b>
           </p>
           <p>
-            Исключено вручную:{" "}
+            {t({ ru: "Исключено вручную:", en: "Manually excluded:" })}{" "}
             <b className="text-foreground">{excludedSlugs.size}</b>
           </p>
           {battleRoyale && (
             <p>
-              Использовано в Battle Royale:{" "}
-              <b className="text-foreground">{battleRoyaleUsed.size}</b> · Осталось:{" "}
+              {t({ ru: "Использовано в Battle Royale:", en: "Used in Battle Royale:" })}{" "}
+              <b className="text-foreground">{battleRoyaleUsed.size}</b> ·{" "}
+              {t({ ru: "Осталось:", en: "Remaining:" })}{" "}
               <b className="text-foreground">{availableCount}</b>
             </p>
           )}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useT } from "@/lib/i18n";
 
 const DEFAULT_POSITION = { x: 24, y: 120 };
 
@@ -9,6 +10,7 @@ const DEFAULT_POSITION = { x: 24, y: 120 };
 // gliding after your cursor until you either grab it again or hit STOP —
 // that's the whole gag, ported from the old site's follow-the-cursor icon.
 export function EasterEgg() {
+  const t = useT();
   const [position, setPosition] = useState(DEFAULT_POSITION);
   const [following, setFollowing] = useState(false);
   const targetRef = useRef(DEFAULT_POSITION);
@@ -60,13 +62,13 @@ export function EasterEgg() {
           onClick={reset}
           className="fixed top-4 right-4 z-[60] rounded-full bg-red-500 px-4 py-2 text-xs font-bold text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
         >
-          СТОП
+          {t({ ru: "СТОП", en: "STOP" })}
         </button>
       )}
       <button
         type="button"
-        aria-label="Секретный дух Vortex Info"
-        title="Поймай меня, если сможешь"
+        aria-label={t({ ru: "Секретный дух Vortex Info", en: "Vortex Info's secret ghost" })}
+        title={t({ ru: "Поймай меня, если сможешь", en: "Catch me if you can" })}
         onMouseDown={startFollowing}
         onMouseUp={stopFollowing}
         style={{ left: position.x, top: position.y }}

@@ -7,6 +7,7 @@ import { getPerksByRole } from "@/lib/perks";
 import { withBasePath } from "@/lib/asset-path";
 import { cn } from "@/lib/cn";
 import { ROLE_COLOR } from "@/lib/role-color";
+import { useT } from "@/lib/i18n";
 
 export function ExcludePanel({
   open,
@@ -30,6 +31,7 @@ export function ExcludePanel({
   onReset: () => void;
   onClose: () => void;
 }) {
+  const t = useT();
   const perksForRole = getPerksByRole(role);
   const roleColor = ROLE_COLOR[role];
 
@@ -53,9 +55,14 @@ export function ExcludePanel({
           >
             <div className="flex items-center justify-between gap-3 border-b border-border p-4">
               <div className="text-left">
-                <p className="font-semibold text-foreground">Настроить пул перков</p>
+                <p className="font-semibold text-foreground">
+                  {t({ ru: "Настроить пул перков", en: "Manage the perk pool" })}
+                </p>
                 <p className="text-xs text-muted">
-                  Выключенные перки не попадут в случайный билд
+                  {t({
+                    ru: "Выключенные перки не попадут в случайный билд",
+                    en: "Disabled perks won't appear in random builds",
+                  })}
                 </p>
               </div>
               <div className="flex shrink-0 items-center gap-2">
@@ -65,12 +72,12 @@ export function ExcludePanel({
                   className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs font-medium text-muted transition-colors hover:bg-surface-hover hover:text-foreground"
                 >
                   <RotateCcw className="size-3.5" />
-                  Сбросить
+                  {t({ ru: "Сбросить", en: "Reset" })}
                 </button>
                 <button
                   type="button"
                   onClick={onClose}
-                  aria-label="Закрыть"
+                  aria-label={t({ ru: "Закрыть", en: "Close" })}
                   className="flex size-8 items-center justify-center rounded-full text-muted transition-colors hover:bg-surface-hover hover:text-foreground"
                 >
                   <X className="size-4" />

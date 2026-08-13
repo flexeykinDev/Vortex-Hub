@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useT } from "@/lib/i18n";
 
 const GITHUB_USERNAME = "flexeykinDev";
 const FALLBACK_NAME = "yiksnele";
@@ -11,6 +12,7 @@ interface GitHubAuthor {
 }
 
 export function Footer() {
+  const t = useT();
   const [author, setAuthor] = useState<GitHubAuthor>({
     name: FALLBACK_NAME,
     avatarUrl: `https://github.com/${GITHUB_USERNAME}.png`,
@@ -43,7 +45,7 @@ export function Footer() {
         {/* eslint-disable-next-line @next/next/no-img-element -- external GitHub avatar, unoptimized static export */}
         <img
           src={author.avatarUrl}
-          alt="Аватар автора"
+          alt={t({ ru: "Аватар автора", en: "Author avatar" })}
           width={36}
           height={36}
           className="rounded-full"
@@ -54,7 +56,7 @@ export function Footer() {
           rel="noreferrer"
           className="font-medium text-foreground transition-colors hover:text-accent"
         >
-          Автор сайта: {author.name}
+          {t({ ru: "Автор сайта:", en: "Site by:" })} {author.name}
         </a>
       </div>
     </footer>
