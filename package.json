@@ -1,5 +1,5 @@
 {
-  "name": "vortex-info",
+  "name": "vortex-hub",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,8 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "seed:translations": "tsx scripts/seed-translations.ts",
-    "scrape:perks": "tsx scripts/scrape-perks.ts",
     "test:e2e": "playwright test"
   },
   "dependencies": {
@@ -24,14 +22,12 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "cheerio": "^1.2.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "sharp": "^0.35.3",
     "tailwindcss": "^4",
-    "tsx": "^4.23.12",
     "typescript": "^5"
   }
 }

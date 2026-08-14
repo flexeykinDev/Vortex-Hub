@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Code2, Dices, Ghost, Music } from "lucide-react";
+import { ArrowRight, Code2, Dices, ExternalLink, Ghost, Music } from "lucide-react";
 import { useT } from "@/lib/i18n";
+
+const DBD_RANDOMIZER_URL = "https://flexeykindev.github.io/dbd-perk-randomizer/";
 
 const TOOLS = [
   {
@@ -10,6 +12,7 @@ const TOOLS = [
     title: { ru: "SpotX", en: "SpotX" },
     description: { ru: "Spotify без рекламы", en: "Ad-free Spotify" },
     icon: Music,
+    external: false,
   },
   {
     href: "/lost-souls",
@@ -19,15 +22,17 @@ const TOOLS = [
       en: "Private Minecraft modpack",
     },
     icon: Ghost,
+    external: false,
   },
   {
-    href: "/dbd-randomizer",
+    href: DBD_RANDOMIZER_URL,
     title: { ru: "DBD Randomizer", en: "DBD Randomizer" },
     description: {
       ru: "Рандомайзер перков для Dead by Daylight",
       en: "Dead by Daylight perk randomizer",
     },
     icon: Dices,
+    external: true,
   },
   {
     href: "/projects",
@@ -37,6 +42,7 @@ const TOOLS = [
       en: "What I build and maintain",
     },
     icon: Code2,
+    external: false,
   },
 ];
 
@@ -58,22 +64,36 @@ export default function Home() {
       </div>
 
       <div className="grid w-full max-w-2xl gap-4 sm:grid-cols-1">
-        {TOOLS.map(({ href, title, description, icon: Icon }) => (
-          <Link
-            key={href}
-            href={href}
-            className="group flex items-center gap-4 rounded-2xl border border-border bg-surface p-5 text-left transition-colors hover:border-accent/40 hover:bg-surface-hover"
-          >
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
-              <Icon className="size-5" />
-            </span>
-            <span className="flex-1">
-              <span className="block font-medium text-foreground">{t(title)}</span>
-              <span className="block text-sm text-muted">{t(description)}</span>
-            </span>
-            <ArrowRight className="size-4 shrink-0 text-muted transition-transform group-hover:translate-x-1 group-hover:text-accent" />
-          </Link>
-        ))}
+        {TOOLS.map(({ href, title, description, icon: Icon, external }) => {
+          const content = (
+            <>
+              <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                <Icon className="size-5" />
+              </span>
+              <span className="flex-1">
+                <span className="block font-medium text-foreground">{t(title)}</span>
+                <span className="block text-sm text-muted">{t(description)}</span>
+              </span>
+              {external ? (
+                <ExternalLink className="size-4 shrink-0 text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
+              ) : (
+                <ArrowRight className="size-4 shrink-0 text-muted transition-transform group-hover:translate-x-1 group-hover:text-accent" />
+              )}
+            </>
+          );
+          const className =
+            "group flex items-center gap-4 rounded-2xl border border-border bg-surface p-5 text-left transition-colors hover:border-accent/40 hover:bg-surface-hover";
+
+          return external ? (
+            <a key={href} href={href} target="_blank" rel="noreferrer" className={className}>
+              {content}
+            </a>
+          ) : (
+            <Link key={href} href={href} className={className}>
+              {content}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

@@ -1,36 +1,15 @@
-# Vortex Info
+# Vortex Hub
 
-Личный сайт с полезными инструментами и рандомайзером перков Dead by
-Daylight. TypeScript + React + Next.js (App Router) + Tailwind CSS.
+Личный сайт с полезными инструментами и ссылками на мои проекты.
+TypeScript + React + Next.js (App Router) + Tailwind CSS.
 
-**Живой сайт:** https://flexeykindev.github.io/Vortex-Info/
+**Живой сайт:** https://flexeykindev.github.io/Vortex-Hub/
 
 ## Что внутри
 
-- **Главная, SpotX, Lost Souls** — статические страницы-инструкции.
-- **DBD Randomizer** — генератор случайного билда из 4 перков
-  выжившего/убийцы, с переключением языка EN/RU и копированием названия
-  перка в буфер обмена по клику.
-
-## Перки — без хардкода
-
-В отличие от старой версии сайта (Vue), где ~250 перков были вручную
-прописаны в коде компонента и требовали ручного обновления после каждой
-главы игры, здесь перки живут в `data/perks.json` — файле, который
-генерирует скрапер:
-
-```bash
-npm run scrape:perks
-```
-
-Скрипт (`scripts/scrape-perks.ts`) забирает актуальный список перков и их
-описания с [официальной wiki Dead by Daylight](https://deadbydaylight.fandom.com/wiki/Perks)
-через MediaWiki API, скачивает и конвертирует иконки в `public/perks/`, и
-подмешивает русские названия из `data/translations.ru.json`.
-
-Раз в неделю это происходит автоматически — GitHub Action
-(`.github/workflows/update-perks.yml`) прогоняет скрапер и открывает PR с
-изменениями, если что-то поменялось.
+- **Главная, SpotX, Lost Souls, Мои проекты** — статические страницы-инструкции.
+- Ссылка на [DBD Perk Randomizer](https://github.com/flexeykinDev/dbd-perk-randomizer) —
+  рандомайзер перков Dead by Daylight, вынесен в отдельный проект.
 
 ## Разработка
 
@@ -39,6 +18,7 @@ npm install
 npm run dev       # http://localhost:3000
 npm run lint
 npm run build      # статический экспорт в out/
+npm run test:e2e   # Playwright smoke tests
 ```
 
 ## Деплой
@@ -49,5 +29,4 @@ npm run build      # статический экспорт в out/
 
 ## Стек
 
-Next.js · TypeScript · React · Tailwind CSS · Framer Motion ·
-lucide-react · cheerio + sharp (скрапер)
+Next.js · TypeScript · React · Tailwind CSS · Framer Motion · lucide-react

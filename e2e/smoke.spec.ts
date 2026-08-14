@@ -8,7 +8,6 @@ test.describe("navigation", () => {
     for (const [label, heading] of [
       ["SpotX", "SpotX"],
       ["Lost Souls", "Lost Souls"],
-      ["DBD Randomizer", "Dead by Daylight"],
       ["Мои проекты", "Мои проекты"],
     ] as const) {
       await page.getByRole("link", { name: label, exact: true }).first().click();
@@ -16,51 +15,15 @@ test.describe("navigation", () => {
       await page.goBack();
     }
   });
-});
 
-test.describe("DBD randomizer", () => {
-  test("generates a build, toggles role, and updates the share URL", async ({ page }) => {
-    await page.goto("/dbd-randomizer");
-
-    const perkGrid = page.locator("main");
-    await expect(perkGrid.locator("img[alt]").first()).toBeVisible();
-
-    // Role toggle switches the pool.
-    await page.getByRole("button", { name: "Убийца" }).click();
-    await expect(page.getByText("Случайный билд для убийцы")).toBeVisible();
-
-    // Regenerating updates the shareable URL query string.
-    await page.getByRole("button", { name: "Сгенерировать новый билд" }).click();
-    await expect(page).toHaveURL(/[?&]role=killer&perks=/);
-  });
-
-  test("exclude panel toggles a perk and persists to localStorage", async ({ page }) => {
-    await page.goto("/dbd-randomizer");
-    await page.getByRole("button", { name: /Настроить пул/ }).click();
-
-    const panel = page.getByText("Настроить пул перков");
-    await expect(panel).toBeVisible();
-
-    // Perk toggle buttons (unlike "Сбросить"/"Закрыть") contain a perk icon.
-    const firstPerkButton = page
-      .locator("div.fixed.inset-0")
-      .locator("button:has(img)")
-      .first();
-    await firstPerkButton.click();
-
-    const excludedSlugs = await page.evaluate(() =>
-      window.localStorage.getItem("vortex-info:dbd-excluded-perks"),
+  test("DBD Randomizer card links out to the standalone site", async ({ page }) => {
+    await page.goto("/");
+    const link = page.getByRole("link", { name: /DBD Randomizer/ });
+    await expect(link).toHaveAttribute(
+      "href",
+      "https://flexeykindev.github.io/dbd-perk-randomizer/",
     );
-    expect(excludedSlugs).not.toBeNull();
-    expect(JSON.parse(excludedSlugs ?? "[]").length).toBeGreaterThan(0);
-  });
-
-  test("opening a shared build URL loads that exact build", async ({ page }) => {
-    await page.goto(
-      "/dbd-randomizer?role=killer&perks=agitation,bamboozle,brutal-strength,corrupt-intervention",
-    );
-    await expect(page.getByText("Нетерпимость")).toBeVisible();
-    await expect(page.getByText("Розыгрыш")).toBeVisible();
+    await expect(link).toHaveAttribute("target", "_blank");
   });
 });
 
@@ -85,7 +48,7 @@ test.describe("theme toggle", () => {
     await toggle.click();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
 
-    await page.getByRole("link", { name: "DBD Randomizer", exact: true }).first().click();
+    await page.getByRole("link", { name: "Мои проекты", exact: true }).first().click();
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
   });
 });

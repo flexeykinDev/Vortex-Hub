@@ -21,12 +21,12 @@ const basePath = process.env.NEXT_BASE_PATH || "";
 
 export const metadata: Metadata = {
   metadataBase: new URL(`https://flexeykindev.github.io${basePath}/`),
-  title: "Vortex Info",
-  description: "Полезные утилиты и рандомайзер перков Dead by Daylight",
+  title: "Vortex Hub",
+  description: "Полезные утилиты и ссылки на мои проекты",
   openGraph: {
     type: "website",
     locale: "ru_RU",
-    siteName: "Vortex Info",
+    siteName: "Vortex Hub",
   },
   twitter: {
     card: "summary_large_image",

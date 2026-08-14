@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 const basePath = process.env.NEXT_BASE_PATH || "";
 const baseUrl = `https://flexeykindev.github.io${basePath}`;
 
-const ROUTES = ["", "/spotx", "/lost-souls", "/dbd-randomizer", "/projects"];
+const ROUTES = ["", "/spotx", "/lost-souls", "/projects"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();

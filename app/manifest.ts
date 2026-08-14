@@ -6,9 +6,9 @@ const basePath = process.env.NEXT_BASE_PATH || "";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Vortex Info",
-    short_name: "Vortex Info",
-    description: "Полезные утилиты и рандомайзер перков Dead by Daylight",
+    name: "Vortex Hub",
+    short_name: "Vortex Hub",
+    description: "Полезные утилиты и ссылки на мои проекты",
     start_url: `${basePath}/`,
     scope: `${basePath}/`,
     display: "standalone",

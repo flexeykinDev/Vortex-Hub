@@ -38,9 +38,9 @@ export default function OpengraphImage() {
           </g>
           <circle cx="32" cy="32" r="3.2" fill="#34d399" />
         </svg>
-        <div style={{ fontSize: 76, fontWeight: 700 }}>Vortex Info</div>
+        <div style={{ fontSize: 76, fontWeight: 700 }}>Vortex Hub</div>
         <div style={{ fontSize: 32, color: "#9096a3" }}>
-          Полезные инструменты и рандомайзер перков Dead by Daylight
+          Полезные инструменты и ссылки на мои проекты
         </div>
       </div>
     ),

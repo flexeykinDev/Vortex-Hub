@@ -5,12 +5,12 @@ import { useMounted } from "./use-mounted";
 
 export type Lang = "ru" | "en";
 
-const LANG_COOKIE = "vortex-info-lang";
+const LANG_COOKIE = "vortex-hub-lang";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 year
 
 function readLangCookie(): Lang | null {
   if (typeof document === "undefined") return null;
-  const match = document.cookie.match(/(?:^|; )vortex-info-lang=(ru|en)/);
+  const match = document.cookie.match(/(?:^|; )vortex-hub-lang=(ru|en)/);
   return match ? (match[1] as Lang) : null;
 }
 

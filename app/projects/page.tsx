@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ProjectsContent } from "./projects-content";
 
 export const metadata: Metadata = {
-  title: "Мои проекты — Vortex Info",
+  title: "Мои проекты — Vortex Hub",
   description:
     "The Counter Web — интерактивный граф контрпиков Dota 2, и Roflo Pinterest Wallpaper — трей-приложение для смены обоев из Pinterest.",
 };

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Code2, Dices, Ghost, Home, Music } from "lucide-react";
+import { Code2, Ghost, Home, Music } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { useT } from "@/lib/i18n";
 import { ThemeToggle } from "./theme-toggle";
@@ -14,11 +14,6 @@ const NAV_LINKS = [
   { href: "/", label: { ru: "Главная", en: "Home" }, icon: Home },
   { href: "/spotx", label: { ru: "SpotX", en: "SpotX" }, icon: Music },
   { href: "/lost-souls", label: { ru: "Lost Souls", en: "Lost Souls" }, icon: Ghost },
-  {
-    href: "/dbd-randomizer",
-    label: { ru: "DBD Randomizer", en: "DBD Randomizer" },
-    icon: Dices,
-  },
   { href: "/projects", label: { ru: "Мои проекты", en: "My Projects" }, icon: Code2 },
 ];
 
