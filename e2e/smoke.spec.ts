@@ -28,15 +28,18 @@ test.describe("navigation", () => {
 });
 
 test.describe("projects page", () => {
-  test("renders both project cards with a working GitHub link", async ({ page }) => {
+  test("renders all project cards with a working GitHub link", async ({ page }) => {
     await page.goto("/projects");
     await expect(page.getByRole("heading", { name: "The Counter Web" })).toBeVisible();
     await expect(
       page.getByRole("heading", { name: "Roflo Pinterest Wallpaper" }),
     ).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "DBD Perk Randomizer" }),
+    ).toBeVisible();
 
     const githubLinks = page.getByRole("link", { name: "GitHub" });
-    await expect(githubLinks).toHaveCount(2);
+    await expect(githubLinks).toHaveCount(3);
     await expect(githubLinks.first()).toHaveAttribute("href", /github\.com/);
   });
 });
