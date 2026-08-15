@@ -27,6 +27,18 @@ export const PROJECTS: Project[] = [
     gif: "/projects/dota-counter-web.gif",
   },
   {
+    slug: "dbd-perk-randomizer",
+    title: "DBD Perk Randomizer",
+    description: {
+      ru: "Рандомайзер билдов Dead by Daylight с полной русской локализацией (перки, персонажи, описания — синхронизируются с официальной wiki скриптами, а не забиты руками). Детерминированный Daily Challenge и свои сиды, режим Battle Royale (использованные перки выбывают из пула навсегда), локальная статистика роллов, экспорт билда картинкой и оверлей для трансляций с прямой синхронизацией из основной вкладки.",
+      en: "A Dead by Daylight build randomizer with full Russian localization (perk names, characters, descriptions — synced from the official wiki via scripts, not hand-typed). Deterministic Daily Challenge and custom seeds, a Battle Royale mode (used perks permanently leave the pool), local roll statistics, build image export, and a stream overlay that mirrors the main tab in real time.",
+    },
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    githubUrl: "https://github.com/flexeykinDev/dbd-perk-randomizer",
+    liveUrl: "https://flexeykindev.github.io/dbd-perk-randomizer/",
+    gif: "/projects/dbd-perk-randomizer.gif",
+  },
+  {
     slug: "roflo-pinterest",
     title: "Roflo Pinterest Wallpaper",
     description: {
